@@ -77,6 +77,8 @@ else
 	CC=$CROSS"gcc" CXX=$CROSS"g++" make || { exit 1; }
 	CC=$CROSS"gcc" CXX=$CROSS"g++" make install prefix=$BUILD_DIR/$MADPLAY_CFG/madplay_root || { exit 1; }
 	cp -a $BUILD_DIR/$MADPLAY_CFG/madplay_root/bin/madplay $INITRD_DIR/usr/bin/
+	cp -a $BUILD_DIR/$LIBMAD_CFG/libmad_root/lib/libmad.so* $INITRD_DIR/lib/
+	cp -a $BUILD_DIR/$LIBID3TAG_CFG/libid3tag_root/lib/libid3tag.so* $INITRD_DIR/lib/
 fi
 
 # stripping.
