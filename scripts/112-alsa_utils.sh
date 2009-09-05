@@ -43,7 +43,7 @@ GetUnpackAndPatch $NCURSES_URL || { echo "GetUnpackAndPatch fail."; exit 1; }
 # build and install ncurses.
 cd "$BUILD_DIR/$NCURSES_CFG" || { echo "Error: Could not enter the $NCURSES_CFG directory."; exit 1; }
 mkdir -p ncurses_build && cd ncurses_build || { exit 1; }
-CC=$CROSS"gcc" CXX=$CROSS"g++" ../configure --prefix=/ --build=$BUILD --host=$HOST --target=$TARGET || { exit 1; }
+CC=$CROSS"gcc" CXX=$CROSS"g++" ../configure --prefix=/usr --build=$BUILD --host=$HOST --target=$TARGET || { exit 1; }
 CC=$CROSS"gcc" make || { exit 1; }
 CC=$CROSS"gcc" make DESTDIR=$BUILD_DIR/$NCURSES_CFG/ncurses_root install || { exit 1; }
 
@@ -62,11 +62,12 @@ mkdir -p alsa_utils_build && cd alsa_utils_build || { exit 1; }
 if [ ! -z $ALSA_UTILS_STATIC ] && [ $ALSA_UTILS_STATIC = "y" ]; then
 	echo "not support" && { exit 1; }
 else
-	CC=$CROSS"gcc" CXX=$CROSS"g++" CFLAGS="-I$BUILD_DIR/$ALSA_UTILS_CFG/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/usr/alsa -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/include/ -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/include/ncurses" CPPFLAGS="-I$BUILD_DIR/$ALSA_UTILS_CFG/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/usr/alsa -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/include -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/include/ncurses" LDFLAGS="-L$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/lib -L$BUILD_DIR/$NCURSES_CFG/ncurses_root/lib" ../configure --with-softfloat --with-alsa-prefix=$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/ --with-alsa-inc-prefix=$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/ --disable-nls --prefix=/usr --build=$BUILD --host=$HOST --target=$TARGET || { exit 1; }
+	CC=$CROSS"gcc" CXX=$CROSS"g++" CFLAGS="-I$BUILD_DIR/$ALSA_UTILS_CFG/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/usr/alsa -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/usr/include/ -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/usr/include/ncurses" CPPFLAGS="-I$BUILD_DIR/$ALSA_UTILS_CFG/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/include -I$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/usr/alsa -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/usr/include -I$BUILD_DIR/$NCURSES_CFG/ncurses_root/include/usr/ncurses" LDFLAGS="-L$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/lib -L$BUILD_DIR/$NCURSES_CFG/ncurses_root/usr/lib" ../configure --with-softfloat --with-alsa-prefix=$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/ --with-alsa-inc-prefix=$BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/include/ --disable-nls --prefix=/usr --build=$BUILD --host=$HOST --target=$TARGET || { exit 1; }
 	CC=$CROSS"gcc" make || { exit 1; }
 	CC=$CROSS"gcc" make DESTDIR=$BUILD_DIR/$ALSA_UTILS_CFG/alsa_utils_root install || { exit 1; }
 	cp -a $BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/lib/libasound.so* $INITRD_DIR/lib/
-	cp -a $BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/share/* $INITRD_DIR/usr/share/
+	cp -adr $BUILD_DIR/$ALSA_LIB_CFG/alsa_lib_root/usr/share $INITRD_DIR/usr/
+	cp -adr $BUILD_DIR/$NCURSES_CFG/ncurses_root/usr/share $INITRD_DIR/usr/
 	rm -fr $BUILD_DIR/$ALSA_UTILS_CFG/alsa_utils_root/usr/share/man/
 	cp -a $BUILD_DIR/$ALSA_UTILS_CFG/alsa_utils_root/usr/* $INITRD_DIR/usr/
 fi
