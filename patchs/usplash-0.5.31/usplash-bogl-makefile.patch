@@ -1,0 +1,18 @@
+--- usplash-0.5.31.orig/bogl/Makefile	2008-11-12 13:32:04.000000000 +0800
++++ usplash-0.5.31/bogl/Makefile	2009-04-11 18:20:39.477090074 +0800
+@@ -83,12 +83,12 @@
+ 
+ bdftobogl: $(LIBBOGLOBJECTS)
+ %.c: %.bdf bdftobogl
+-	./bdftobogl $< > $@
++	bdftobogl $< > $@
+ 
+ pngtobogl: pngtobogl.o
+-	$(CC) $(ALLCFLAGS) -o pngtobogl pngtobogl.o -lgd -lpng -lm
++	touch pngtobogl
+ %.c: %.png pngtobogl
+-	./pngtobogl $< > $@
++	pngtobogl $< > $@
+ 
+ depend: .depend
+ .depend: $(SOURCES_DEP)

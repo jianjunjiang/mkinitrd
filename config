@@ -1,0 +1,56 @@
+#!/bin/sh
+#
+# Description	: The config file for mkinitrd.
+# Authors	: jianjun jiang - jerryjianjun@gmail.com
+# Version	: 0.01
+# Notes		: None
+#
+
+
+############################################################
+# The environment of compiler. 
+export CROSS=/usr/local/arm/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-
+export SHARE_LIB_DIR=/usr/local/arm/arm-none-linux-gnueabi/arm-none-linux-gnueabi/libc/lib/
+export BUILD=x86
+export HOST=arm-linux
+export TARGET=arm-linux
+
+# The BASIC SOURCE file's version which will be compiled.
+export BUSYBOX_CFG=busybox-1.13.4
+export UDEV_CFG=udev-141
+export USPLASH_CFG=usplash-0.5.31
+export LRZSZ_CFG=lrzsz-0.12.20
+export MTDUTILS_CFG=mtd-utils-1.2.0
+export FBSET_CFG=fbset-2.1
+export STRACE_CFG=strace-4.5.16
+export GDB_CFG=gdb-6.8
+export MADPLAY_CFG=madplay-0.15.2b
+export WIRELESS_TOOLS_CFG=wireless_tools.29
+export FMTOOLS_CFG=fmtools-1.0.2
+export ALSA_UTILS_CFG=alsa-utils-1.0.21
+export I2CTOOLS_CFG=i2c-tools-3.0.2
+
+############################################################
+# The BASIC control flag for mkinitrd script.
+export RESOURCE_ENABLE=y
+export INITRD_ENABLE=y
+export MKDIR_ENABLE=y
+export MKDEV_ENABLE=y
+export CPGLIBC_ENABLE=y
+
+export BUSYBOX_ENABLE=y
+export UDEV_ENABLE=y
+export USPLASH_ENABLE=n
+export LRZSZ_ENABLE=y
+export MTDUTILS_ENABLE=y
+export FBSET_ENABLE=y
+export STRACE_ENABLE=n
+export GDB_ENABLE=n
+export MADPLAY_ENABLE=y
+export WIRELESS_TOOLS_ENABLE=y
+export FMTOOLS_ENABLE=y
+export ALSA_UTILS_ENABLE=y
+export I2CTOOLS_ENABLE=y
+
+
+

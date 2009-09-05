@@ -1,0 +1,15 @@
+--- usplash-0.5.31.orig/Makefile	2008-11-12 13:32:04.000000000 +0800
++++ usplash-0.5.31/Makefile	2009-04-11 18:22:51.697089890 +0800
+@@ -59,10 +59,10 @@
+ 	$(COMPILE) -o $@ -c $<
+ 
+ .png.c:
+-	./bogl/pngtobogl $< > $@
++	pngtobogl $< > $@
+ 
+ .bdf.c:
+-	./bogl/bdftobogl $< > $@
++	bdftobogl $< > $@
+ 
+ 
+ install:
